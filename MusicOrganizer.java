@@ -1,10 +1,12 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random; 
 
 /**
  * A class to hold details of audio tracks.
  * Individual tracks may be played.
  * 
- * @author David J. Barnes and Michael Kölling
+ * @author David J. Barnes and Michael Kölling and Trevor McQueen
  * @version 2016.02.29
  */
 public class MusicOrganizer
@@ -92,9 +94,43 @@ public class MusicOrganizer
         }
         System.out.println();
     }
+    /** This will play a random track
+     *
+     */
+    public void playRandomTrack() {
+        if (!tracks.isEmpty()) {
+            Random rand = new Random();
+            int index = rand.nextInt(tracks.size());
+            Track track = tracks.get(index);
+            player.startPlaying(track.getFilename());
+            System.out.println("Now playing: " + track.getDetails());
+        } else {
+            System.out.println(" No tracks to play.");
+            
+        }
+    }
+    /** This will play all tracks once in a  random order
+     * 
+     */
+    public void playALLRandomly() {
+        if (!tracks.isEmpty()) {
+            ArrayList<Track> copy = new ArrayList<>(tracks);
+            Collections.shuffle(copy);
+            for (Track track : copy) {
+                player.startPlaying(track.getFilename());
+                System.out.println("Now playing: " + track.getDetails());
+            }
+        } else {
+            System.out.println("No tracks to play.");
+        }
+            
+      }
+      
+        
+        
     
-    /**
-     * List all tracks by the given artist.
+     
+     /** List all tracks by the given artist.
      * @param artist The artist's name.
      */
     public void listByArtist(String artist)
